@@ -31,8 +31,16 @@
 <div id="mainScreen" class="screen hidden">
   <header class="app-header">
     <h1>Соответствия специальностей</h1>
-    <button id="lockAgainBtn" title="Заблокировать" aria-label="Заблокировать">🔒</button>
+    <div class="header-actions">
+      <button id="installBtn" class="install-btn hidden" title="Установить приложение">⬇ Установить</button>
+      <button id="lockAgainBtn" title="Заблокировать" aria-label="Заблокировать">🔒</button>
+    </div>
   </header>
+
+  <div id="iosInstallBanner" class="ios-banner hidden">
+    <span>Чтобы установить: нажмите <strong>Поделиться</strong> (значок ⬆︎ внизу браузера), затем «<strong>На экран «Домой»</strong>».</span>
+    <button id="iosBannerClose" aria-label="Закрыть">✕</button>
+  </div>
 
   <div class="search-wrap">
     <input id="searchInput" type="text" placeholder="Код или название специальности…" autocomplete="off" />

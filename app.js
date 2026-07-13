@@ -3,7 +3,7 @@
 // Это лёгкий барьер (данные и так внутри приложения), а не
 // настоящая защита данных — так и было задумано.
 // ============================================================
-const APP_PASSWORD = "1991";
+const APP_PASSWORD = "1234";
 const LOCK_STORAGE_KEY = "specapp_unlocked_v1";
 
 // ============================================================
@@ -193,6 +193,60 @@ clearBtn.addEventListener('click', () => {
   suggestionsEl.classList.add('hidden');
   clearResult();
   searchInput.focus();
+});
+
+// ============================================================
+// Установка на телефон
+// ============================================================
+const installBtn = document.getElementById('installBtn');
+const iosBanner = document.getElementById('iosInstallBanner');
+const iosBannerClose = document.getElementById('iosBannerClose');
+
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches
+    || window.navigator.standalone === true; // старый флаг Safari
+}
+
+function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
+
+let deferredInstallPrompt = null;
+
+// Android / Chrome / Edge — браузер сам предлагает событие,
+// мы его перехватываем и показываем свою кнопку вместо системной плашки.
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  if (!isStandalone()) installBtn.classList.remove('hidden');
+});
+
+installBtn.addEventListener('click', async () => {
+  if (!deferredInstallPrompt) return;
+  installBtn.classList.add('hidden');
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+});
+
+window.addEventListener('appinstalled', () => {
+  installBtn.classList.add('hidden');
+  iosBanner.classList.add('hidden');
+});
+
+// iOS Safari не поддерживает beforeinstallprompt вообще —
+// показываем текстовую подсказку «Поделиться → На экран Домой»,
+// если приложение ещё не установлено и подсказку раньше не закрывали.
+const IOS_BANNER_DISMISS_KEY = 'specapp_ios_banner_dismissed';
+if (isIOS() && !isStandalone()) {
+  let dismissed = false;
+  try { dismissed = localStorage.getItem(IOS_BANNER_DISMISS_KEY) === '1'; } catch (e) {}
+  if (!dismissed) iosBanner.classList.remove('hidden');
+}
+
+iosBannerClose.addEventListener('click', () => {
+  iosBanner.classList.add('hidden');
+  try { localStorage.setItem(IOS_BANNER_DISMISS_KEY, '1'); } catch (e) {}
 });
 
 // ============================================================
