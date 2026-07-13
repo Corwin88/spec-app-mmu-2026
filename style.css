@@ -1,0 +1,302 @@
+:root {
+  --white: #FFFFFF;
+  --black: #000000;
+  --blue: #99B3C4;
+  --gray: #D3D7D8;
+  --blue-dark: #7c93a3;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--black);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--black);
+  overscroll-behavior-y: contain;
+}
+
+.screen {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- Lock screen ---------- */
+#lockScreen {
+  background: var(--black);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  padding-top: calc(24px + var(--safe-top));
+  padding-bottom: calc(24px + var(--safe-bottom));
+}
+
+.lock-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+.lock-icon { font-size: 40px; margin-bottom: 8px; }
+
+.lock-card h1 {
+  font-size: 20px;
+  margin: 8px 0 4px;
+  color: var(--black);
+}
+
+.lock-card .hint {
+  color: #6a6a6a;
+  font-size: 14px;
+  margin: 0 0 20px;
+}
+
+#passwordInput {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 17px;
+  border: 2px solid var(--gray);
+  border-radius: 12px;
+  outline: none;
+  background: var(--white);
+  color: var(--black);
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+#passwordInput:focus { border-color: var(--blue); }
+
+#unlockBtn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--black);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+#unlockBtn:active { background: #222; }
+
+.error {
+  color: #c0392b;
+  font-size: 13px;
+  min-height: 18px;
+  margin-top: 12px;
+}
+
+/* ---------- Main screen ---------- */
+#mainScreen {
+  background: var(--white);
+}
+
+.app-header {
+  background: var(--black);
+  color: var(--white);
+  padding: 16px 20px;
+  padding-top: calc(16px + var(--safe-top));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.app-header h1 {
+  font-size: 17px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.app-header button {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: var(--white);
+  cursor: pointer;
+  padding: 6px;
+  opacity: 0.85;
+}
+
+.search-wrap {
+  position: relative;
+  padding: 16px 16px 8px;
+  background: var(--white);
+}
+
+#searchInput {
+  width: 100%;
+  padding: 14px 44px 14px 16px;
+  font-size: 16px;
+  border: 2px solid var(--gray);
+  border-radius: 14px;
+  outline: none;
+  background: var(--white);
+  color: var(--black);
+}
+
+#searchInput:focus { border-color: var(--blue); }
+
+.clear-btn {
+  position: absolute;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-40%);
+  background: var(--gray);
+  color: var(--black);
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.suggestions {
+  margin: 0 16px;
+  background: var(--white);
+  border: 2px solid var(--gray);
+  border-radius: 14px;
+  overflow: hidden;
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
+.suggestion-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--gray);
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item:active { background: var(--gray); }
+
+.suggestion-code {
+  color: var(--blue-dark);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.suggestion-item mark {
+  background: var(--blue);
+  color: var(--black);
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
+.suggestions-empty {
+  padding: 16px;
+  color: #888;
+  font-size: 14px;
+  text-align: center;
+}
+
+.result-area {
+  flex: 1;
+  padding: 8px 16px 24px;
+}
+
+.empty-state {
+  color: #888;
+  font-size: 14px;
+  text-align: center;
+  padding: 48px 24px;
+  line-height: 1.5;
+}
+
+.result-card {
+  background: var(--white);
+  border: 2px solid var(--gray);
+  border-radius: 16px;
+  padding: 18px;
+  margin-top: 8px;
+}
+
+.result-card .spec-title {
+  font-size: 13px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
+}
+
+.result-card .spec-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.result-card .spec-code {
+  display: inline-block;
+  background: var(--gray);
+  color: var(--black);
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.direction-label {
+  font-size: 13px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 16px 0 8px;
+}
+
+.direction-item {
+  background: var(--blue);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.direction-item:last-child { margin-bottom: 0; }
+
+.direction-item .dcode {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--black);
+  opacity: 0.75;
+  margin-bottom: 2px;
+}
+
+.direction-item .dname {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--black);
+}
+
+.direction-multi-note {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 8px 12px calc(10px + var(--safe-bottom));
+  font-size: 11px;
+  color: #aaa;
+}
