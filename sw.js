@@ -1,7 +1,7 @@
 // Версия кэша. МЕНЯЙТЕ ЭТУ СТРОКУ (например v2, v3...) каждый раз,
 // когда обновляете index.html / style.css / app.js / data.js —
 // иначе браузер продолжит показывать старую закэшированную версию.
-const CACHE_NAME = 'spec-app-cache-v5';
+const CACHE_NAME = 'spec-app-cache-v6';
 const ASSETS = [
   './',
   './index.html',
