@@ -429,6 +429,72 @@ html, body {
   color: var(--black);
 }
 
+.details-toggle {
+  margin-top: 10px;
+  background: rgba(0,0,0,0.08);
+  border: none;
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--black);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.details-toggle .chevron {
+  display: inline-block;
+  transition: transform 0.15s ease;
+  font-size: 10px;
+}
+
+.details-toggle.open .chevron {
+  transform: rotate(180deg);
+}
+
+.details-panel {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0,0,0,0.15);
+}
+
+.details-block { margin-bottom: 10px; }
+.details-block:last-child { margin-bottom: 0; }
+
+.details-heading {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: rgba(0,0,0,0.55);
+  margin-bottom: 6px;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 4px 9px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.exam-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--black);
+}
+
 .direction-multi-note {
   font-size: 12px;
   color: #888;

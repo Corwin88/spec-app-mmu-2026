@@ -143,12 +143,38 @@ function renderResult(spec) {
   emptyState.classList.add('hidden');
   resultCard.classList.remove('hidden');
 
-  const dirsHtml = spec.directions.map(d => `
-    <div class="direction-item">
-      <div class="dcode">${escapeHtml(d.code)}</div>
-      <div class="dname">${escapeHtml(d.name)}</div>
-    </div>
-  `).join('');
+  const dirsHtml = spec.directions.map((d, i) => {
+    const info = (typeof EXAMS !== 'undefined') ? EXAMS[d.code] : null;
+    const detailsId = `dir-details-${i}`;
+
+    const toggleHtml = info ? `
+      <button class="details-toggle" data-target="${detailsId}" aria-expanded="false">
+        Экзамены и форма обучения <span class="chevron">▾</span>
+      </button>
+      <div class="details-panel hidden" id="${detailsId}">
+        <div class="details-block">
+          <div class="details-heading">Форма обучения</div>
+          <div class="chip-row">
+            ${info.forms.map(f => `<span class="chip">${escapeHtml(f)}</span>`).join('')}
+          </div>
+        </div>
+        <div class="details-block">
+          <div class="details-heading">Вступительные испытания</div>
+          <ul class="exam-list">
+            ${info.exams.map(e => `<li>${escapeHtml(e)}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+    ` : '';
+
+    return `
+      <div class="direction-item">
+        <div class="dcode">${escapeHtml(d.code)}</div>
+        <div class="dname">${escapeHtml(d.name)}</div>
+        ${toggleHtml}
+      </div>
+    `;
+  }).join('');
 
   const multiNote = spec.directions.length > 1
     ? `<div class="direction-multi-note">Эта специальность СПО подходит сразу под ${spec.directions.length} направления подготовки.</div>`
@@ -162,6 +188,16 @@ function renderResult(spec) {
     ${dirsHtml}
     ${multiNote}
   `;
+
+  resultCard.querySelectorAll('.details-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const panel = document.getElementById(btn.getAttribute('data-target'));
+      const isHidden = panel.classList.contains('hidden');
+      panel.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(isHidden));
+      btn.classList.toggle('open', isHidden);
+    });
+  });
 }
 
 function clearResult() {
