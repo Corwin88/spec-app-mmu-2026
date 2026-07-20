@@ -1,3 +1,8 @@
+// ============================================================
+// НАСТРОЙКИ — здесь можно поменять пароль входа.
+// Это лёгкий барьер (данные и так внутри приложения), а не
+// настоящая защита данных — так и было задумано.
+// ============================================================
 const APP_PASSWORD = "1991";
 const LOCK_STORAGE_KEY = "specapp_unlocked_v1";
 
@@ -242,6 +247,23 @@ if (isIOS() && !isStandalone()) {
 iosBannerClose.addEventListener('click', () => {
   iosBanner.classList.add('hidden');
   try { localStorage.setItem(IOS_BANNER_DISMISS_KEY, '1'); } catch (e) {}
+});
+
+const iosShowGuide = document.getElementById('iosShowGuide');
+const iosGuideOverlay = document.getElementById('iosGuideOverlay');
+const iosGuideClose = document.getElementById('iosGuideClose');
+
+iosShowGuide.addEventListener('click', () => {
+  iosGuideOverlay.classList.remove('hidden');
+});
+
+function closeIosGuide() {
+  iosGuideOverlay.classList.add('hidden');
+}
+
+iosGuideClose.addEventListener('click', closeIosGuide);
+iosGuideOverlay.addEventListener('click', (e) => {
+  if (e.target === iosGuideOverlay) closeIosGuide();
 });
 
 // ============================================================
