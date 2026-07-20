@@ -149,7 +149,7 @@ function renderResult(spec) {
 
     const toggleHtml = info ? `
       <button class="details-toggle" data-target="${detailsId}" aria-expanded="false">
-        Экзамены и форма обучения <span class="chevron">▾</span>
+        Форма и ВИ <span class="chevron">▾</span>
       </button>
       <div class="details-panel hidden" id="${detailsId}">
         <div class="details-block">
